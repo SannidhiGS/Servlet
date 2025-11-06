@@ -1,6 +1,8 @@
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 @WebServlet(urlPatterns = "/buyer",loadOnStartup = 1)
 public class BuyerServlet extends GenericServlet {
     public BuyerServlet(){
@@ -30,8 +32,20 @@ public class BuyerServlet extends GenericServlet {
         System.out.println("Loan Required: " + loanRequired);
         System.out.println("Occupation: " + occupation);
         System.out.println("Comments: " + comments);
+        servletResponse.setContentType("text/html");
+        PrintWriter writer=servletResponse.getWriter();
+        writer.println("Data saved successfully............"+name);
         System.out.println("----------------------------------------------------------");
-
+        servletResponse.setContentType("text/html");
+        writer.println(" Age :"+age);
+        writer.println(" Email :"+email);
+        writer.println(" Phone :"+phone);
+        writer.println(" Budget: "+budget);
+        writer.println(" Preferred Location: "+location);
+        writer.println(" Property Type  : "+propertyType);
+        writer.println(" Loan Required: "+loanRequired);
+        writer.println(" Occupation: "+occupation);
+        writer.println(" Comments: "+comments);
     }
 
     @Override

@@ -1,6 +1,8 @@
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 @WebServlet(urlPatterns = "/license",loadOnStartup = 1)
 public  class DlServlet extends GenericServlet {
     public DlServlet(){
@@ -41,6 +43,25 @@ public  class DlServlet extends GenericServlet {
         System.out.println("Test Date: " + testdate);
         System.out.println("Comment: " + comment);
         System.out.println("----------------------------------------------------------");
+       servletResponse.setContentType("text/html");
+       PrintWriter writer=servletResponse.getWriter();
+       writer.println("Data saved successfully.............."+fullname);
+     writer.println("The Driving License Details are:");
+       writer.println(" Full Name: " + fullname);
+        writer.println(" Date of Birth: " + dob);
+       writer.println(" Gender: " + gender);
+       writer.println(" Address: " + address);
+        writer.println(" Phone: " + phone);
+        writer.println(" Email: " + email);
+        writer.println(" Blood Group: " + bloodgroup);
+        writer.println(" Vehicle Type: " + vehicletype);
+        writer.println(" License Type: " + licensetype);
+        writer.println(" Experience: " + experience);
+        writer.println(" Aadhar Number: " + aadhar);
+        writer.println(" ID Proof Type: " + idproof);
+        writer.println(" ID Number: " + idnumber);
+        writer.println(" Test Date: " + testdate);
+        writer.println(" Comment: " + comment);
 
     }
 
