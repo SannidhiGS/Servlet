@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/info-collectorserv.iml" filepath="$PROJECT_DIR$/info-collectorserv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/assesment-servlet.iml" filepath="$PROJECT_DIR$/assesment-servlet.iml" />
     </modules>
   </component>
 </project>
