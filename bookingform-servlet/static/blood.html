@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blood Booking Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<fieldset class="border p-4 m-4 rounded bg-white shadow">
+  <form action="blood" method="post">
+    <h2 class="text-center mb-4 text-danger">Blood Booking Form</h2>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Full Name:</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number:</label>
+      <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your phone number" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="bloodGroup" class="form-label">Select Blood Group:</label>
+      <select class="form-select" name="bloodGroup" id="bloodGroup" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="hospital" class="form-label">Hospital Name:</label>
+      <input type="text" class="form-control" name="hospital" id="hospital" placeholder="Enter hospital name" required>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="urgency" id="urgent" value="Urgent" checked>
+      <label class="form-check-label" for="urgent">Urgent</label>
+    </div>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="radio" name="urgency" id="normal" value="Normal">
+      <label class="form-check-label" for="normal">Normal</label>
+    </div>
+
+    <button type="submit" class="btn btn-danger w-100">Book Blood</button>
+  </form>
+</fieldset>
+
+</body>
+</html>
