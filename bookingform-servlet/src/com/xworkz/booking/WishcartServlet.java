@@ -3,6 +3,7 @@ package com.xworkz.booking;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,15 @@ public class WishcartServlet extends HttpServlet {
         String comment=req.getParameter("comment");
         String payment=req.getParameter("payment");
 
+        Cookie[] cookies= req.getCookies();
+        if(cookies==null ||cookies.length<1){
+            throw new IllegalArgumentException("Cookie not formed till now and go create cookie ");
+        }
+        else{
+            for(Cookie cookie:cookies){
+                System.out.println("The name of the cookie is "+cookie.getName()+" The value of the cookie"+cookie.getValue());
+            }
+        }
         resp.setContentType("text/html");
         PrintWriter printWriter=resp.getWriter();
         printWriter.println("<html>");

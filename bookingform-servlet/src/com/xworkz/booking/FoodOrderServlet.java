@@ -3,6 +3,7 @@ package com.xworkz.booking;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,16 +27,24 @@ public class FoodOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // Read form data
+
         String name = req.getParameter("name");
         String phone = req.getParameter("phone");
         String foodItem = req.getParameter("foodItem");
         String delivery = req.getParameter("delivery");
+        Cookie[] cookies=req.getCookies();
+        if(cookies==null || cookies.length<1){
+            throw new IllegalArgumentException("There is no cookie , go and create cookie");
+        }
+        else {
+            for(Cookie cookie:cookies){
+                System.out.println("The name is "+cookie.getName()+" The value is: "+cookie.getValue());
+            }
+        }
 
-        // Set response content type
         resp.setContentType("text/html");
 
-        // Write a simple styled HTML response
+
         PrintWriter out = resp.getWriter();
         out.println("<html>");
         out.println("<head>");

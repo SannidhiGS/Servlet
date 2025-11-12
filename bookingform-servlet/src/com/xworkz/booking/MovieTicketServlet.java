@@ -3,6 +3,7 @@ package com.xworkz.booking;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,17 @@ public class MovieTicketServlet extends HttpServlet {
         String moviez=req.getParameter("moviez");
         String comment=req.getParameter("comment");
         String seatType=req.getParameter("seatType");
+
+        Cookie[] cookies=req.getCookies();
+
+        if(cookies==null|| cookies.length<1){
+            throw new IllegalArgumentException("There is no cookie created and go create cooki");
+        }
+        else{
+            for(Cookie cookie:cookies){
+                System.out.println("The cookie name is "+cookie.getName()+"The value is "+cookie.getValue());
+            }
+        }
 
         resp.setContentType("text/html");
         PrintWriter printWriter=resp.getWriter();
