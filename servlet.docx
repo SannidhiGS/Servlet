@@ -1,0 +1,134 @@
+public interface Filter
+A filter is an object that performs filtering tasks on either the request to a resource (a servlet or static content), or on the response from a resource, or both.
+Filters perform filtering in the doFilter method. Every Filter has access to a FilterConfig object from which it can obtain its initialization parameters, and a reference to the ServletContext which it can use, for example, to load resources needed for filtering tasks.
+Filters are configured in the deployment descriptor of a web application.
+Examples that have been identified for this design are:
+1.	Authentication Filters
+2.	Logging and Auditing Filters
+3.	Image conversion Filters
+4.	Data compression Filters
+5.	Encryption Filters
+6.	Tokenizing Filters
+7.	Filters that trigger resource access events
+8.	XSL/T filters
+9.	Mime-type chain Filter
+Core Methods (in the Filter Lifecycle)
+According to the API (and documentation) the Filter interface defines three key lifecycle methods: Oracle Docs
+•	init(FilterConfig filterConfig) — Called once by the container when the filter is first placed into service. Use this to perform initialization tasks (e.g., read init parameters).
+•	doFilter(ServletRequest request, ServletResponse response, FilterChain chain) — Called each time a request/response pair is passed through the filter chain. This is where the main filtering logic happens. The chain object allows passing the request/response onward.
+•	destroy() — Called once by the container when the filter is being taken out of service, after all threads have finished processing. Use this to clean up resources. 
+package com.example.filters;
+
+import java.io.IOException;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+
+/**
+ * A simple filter that logs request processing time.
+ */
+@WebFilter("/*") // Applies to all URLs in the application
+public class LoggingFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Initialization logic (optional)
+        System.out.println("LoggingFilter initialized");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
+        long startTime = System.currentTimeMillis();
+
+        // Pass the request along the filter chain
+        chain.doFilter(request, response);
+
+        long duration = System.currentTimeMillis() - startTime;
+        System.out.println("Request processed in " + duration + " ms");
+    }
+
+    @Override
+    public void destroy() {
+        // Cleanup logic (optional)
+        System.out.println("LoggingFilter destroyed");
+    }
+}
+web.xml Configuration (if not using @WebFilter)
+<filter>
+    <filter-name>LoggingFilter</filter-name>
+    <filter-class>com.example.filters.LoggingFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>LoggingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+SERVLET LISTENER
+
+A listener in the context of the Java Servlet API (also in Jakarta Servlet API) is a component that monitors and responds to certain events in the web-application lifecycle. According to the Oracle/Java EE tutorial:
+
+You define a listener class as an implementation of a listener interface… When a listener method is invoked, it is passed an event that contains information appropriate to the event.” 
+Oracle Docs
+import javax.servlet.*;
+import javax.servlet.annotation.WebListener;
+
+@WebListener
+public class AppContextListener implements ServletContextListener {
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        ServletContext context = sce.getServletContext();
+        String dbUrl  = context.getInitParameter("DB_URL");
+        String dbUser = context.getInitParameter("DB_USER");
+        String dbPwd  = context.getInitParameter("DB_PWD");
+
+        // Example: Setup a shared resource, like a DB connection pool
+        MyDatabasePool pool = new MyDatabasePool(dbUrl, dbUser, dbPwd);
+        context.setAttribute("DB_POOL", pool);
+        System.out.println("Application started: DB pool created");
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        ServletContext context = sce.getServletContext();
+        MyDatabasePool pool = (MyDatabasePool) context.getAttribute("DB_POOL");
+        if (pool != null) {
+            pool.shutdown();
+            System.out.println("Application stopping: DB pool shutdown");
+        }
+    }
+}
+<context-param>
+    <param-name>DB_URL</param-name>
+    <param-value>jdbc:mysql://localhost/mydb</param-value>
+</context-param>
+<context-param>
+    <param-name>DB_USER</param-name>
+    <param-value>root</param-value>
+</context-param>
+<context-param>
+    <param-name>DB_PWD</param-name>
+    <param-value>secret</param-value>
+</context-param>
+
+<listener>
+    <listener-class>com.example.AppContextListener</listener-class>
+</listener
+
+
+DIFFERENCE BETWEEN SERVLETCONFIG AND SERVLETREQUEST
+
+| Feature                   | **ServletConfig**                               | **ServletContext**                                                                                                 |
+| ------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Scope**                 | Specific to a **single servlet**                | Shared by **all servlets** in the application                                                                      |
+| **Defined in**            | `<init-param>` inside `<servlet>` in `web.xml`  | `<context-param>` in `web.xml`                                                                                     |
+| **Accessed by**           | `getServletConfig()`                            | `getServletContext()`                                                                                              |
+| **Purpose**               | To read **servlet-specific** configuration data | To read **application-wide** configuration data                                                                    |
+| **Lifecycle**             | Created when the servlet is initialized         | Created when the web application starts                                                                            |
+| **Sharing Data**          | Not shared — each servlet gets its own          | Shared — accessible by all servlets                                                                                |
+| **Methods**               | `getInitParameter(String name)`                 | `getInitParameter(String name)` (for context params), `setAttribute()`, `getAttribute()`, `getRealPath()`, `log()` |
+| **Example Use**           | Database URL specific to one servlet            | Logging setup, file paths, or global DB pool                                                                       |
+| **Relation to Container** | Communicates servlet init parameters            | Communicates with container & entire app                                                                           |
+
