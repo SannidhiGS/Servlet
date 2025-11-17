@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/profile-proservlet.iml" filepath="$PROJECT_DIR$/profile-proservlet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bookingform-servlet.iml" filepath="$PROJECT_DIR$/bookingform-servlet.iml" />
     </modules>
   </component>
 </project>
