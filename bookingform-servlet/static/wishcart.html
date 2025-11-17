@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WishCart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<fieldset>
+    <form action="wish" method="post">
+    <h1>Buy the product you want.................</h1>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name" required>
+    </div>
+    <div class="mb-3">
+        <label for="prod" class="form-label">Select Movie:</label>
+        <select class="form-select" name="product" id="movie" required>
+            <option value="hair">Hair Straigtner</option>
+            <option value="clip">Hair clip</option>
+            <option value="lipstick">LipStick</option>
+        </select>
+    </div>
+
+    <div class="form-floating mb-3">
+        <textarea class="form-control" name="comment" id="floatingTextarea" placeholder="Leave a comment here"></textarea>
+        <label for="floatingTextarea">Comments</label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment" checked>
+        <label class="form-check-label" for="payment">Online Payment</label>
+    </div>
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="radio" name="payment" id="normal" value="Normal">
+        <label class="form-check-label" for="payment">Cash On Delivery</label>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Book Ticket</button>
+    </form>
+</fieldset>
+</body>
+</html>
