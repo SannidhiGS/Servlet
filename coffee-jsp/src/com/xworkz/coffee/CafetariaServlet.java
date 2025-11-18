@@ -1,7 +1,11 @@
 package com.xworkz.coffee;
 
+import dto.CafetariaDTO;
+import service.CafetariaService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +26,18 @@ public class CafetariaServlet extends HttpServlet {
         String franch=req.getParameter("franch");
         String owner=req.getParameter("owner");
         String gst=req.getParameter("gst");
+
+        CafetariaDTO cafetariaDTO=new CafetariaDTO(name,location,type,Float.parseFloat(price),franch,owner,Long.parseLong(gst));
+        System.out.println("Cafetaria-->"+cafetariaDTO.toString());
+        Cookie[] cookies=req.getCookies();
+        if(cookies==null ||cookies.length<1){
+            throw new IllegalArgumentException("There is no cookie found , Go and create cookie");
+        }
+        else{
+            for (Cookie cookie1:cookies) {
+                System.out.println("Name: " + cookie1.getName() + " Value: " + cookie1.getValue());
+            }
+        }
 
         req.setAttribute("name",name);
         req.setAttribute("location",location);

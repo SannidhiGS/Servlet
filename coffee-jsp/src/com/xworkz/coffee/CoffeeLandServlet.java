@@ -1,7 +1,10 @@
 package com.xworkz.coffee;
 
+import dto.CoffeeLandDTO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,18 @@ public class CoffeeLandServlet extends HttpServlet {
         String expend=req.getParameter("expend");
         String profit=req.getParameter("profit");
         String Fert=req.getParameter("Fert");
+
+   CoffeeLandDTO coffeeLandDTO =new CoffeeLandDTO(Integer.parseInt(size),Float.parseFloat(total), quantity,Float.parseFloat(expend) ,Float.parseFloat( profit), Fert);
+        System.out.println("CoffeeLandDTO-->"+coffeeLandDTO.toString());
+        Cookie[] cookies=req.getCookies();
+         if(cookies==null || cookies.length<1){
+             throw new IllegalArgumentException("There is no cookie found , go and create cookie");
+         }
+         else{
+             for(Cookie cookie:cookies){
+                 System.out.println("Name: "+cookie.getName()+" Value: "+cookie.getValue());
+             }
+         }
 
         req.setAttribute("Size",size);
         req.setAttribute("Total",total);
