@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Your coffee booked succesfully!</h1>
+    <h1 style="color:green">${successMessage}</h1>
+    <h1 style="color:red">${errorMessage}</h1>
      <p><b> Name :</b>${name}</p>
      <p><b> Location :</b>${location}</p>
      <p><b> Type :</b>${type}</p>

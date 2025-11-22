@@ -40,7 +40,6 @@
               <label for="farmer" class="form-label">Location</label>
               <input type="text" class="form-control" name="location" id="exampleInputPassword1">
             </div>
-
       <button type="submit" class="btn btn-primary" background-color="brown" action="send">Submit</button>
     </form>
   </body>
