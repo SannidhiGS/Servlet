@@ -1,6 +1,7 @@
 package com.xworkz.servlet;
 
 import com.xworkz.dto.FishDTO;
+import com.xworkz.exception.DataDuplicateExecption;
 import com.xworkz.exception.DataInvalidException;
 import com.xworkz.service.FishService;
 import com.xworkz.service.impl.FishServiceImpl;
@@ -59,7 +60,7 @@ public class AquaServlet extends HttpServlet {
             fishService.validAndSave(fishDTO);
             req.setAttribute("successMessage","Your data saved successfully");
 
-        } catch (DataInvalidException e) {
+        } catch (DataInvalidException | DataDuplicateExecption e) {
             System.out.println("The data is not valid");
             req.setAttribute("failureMessage","Your data saved successfully");
             req.getRequestDispatcher("result.jsp").forward(req,resp);
@@ -70,7 +71,7 @@ public class AquaServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("result.jsp").forward(req,resp);
+        req.getRequestDispatcher("fish").forward(req,resp);
     }
 
 }

@@ -29,7 +29,7 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Hatchery Registration Form</h2>
+        <h2>Aqua Marine Registration Form</h2>
         <form action="fish" method="post">
             <div class="mb-3">
                 <label for="owner" class="form-label">Owner Name:</label>

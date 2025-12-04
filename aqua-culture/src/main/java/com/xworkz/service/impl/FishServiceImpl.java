@@ -3,6 +3,7 @@ package com.xworkz.service.impl;
 import com.xworkz.dao.FishDAO;
 import com.xworkz.dao.impl.FishDAOImpl;
 import com.xworkz.dto.FishDTO;
+import com.xworkz.exception.DataDuplicateExecption;
 import com.xworkz.exception.DataInvalidException;
 import com.xworkz.service.FishService;
 
@@ -12,7 +13,7 @@ public class FishServiceImpl implements FishService {
         System.out.println("The fish service implimented");
     }
     @Override
-    public void validAndSave(FishDTO fishDTO) throws DataInvalidException {
+    public boolean validAndSave(FishDTO fishDTO) throws DataInvalidException,DataDuplicateExecption {
          String owner=fishDTO.getOwner();
          String fishType=fishDTO.getFishType();
          String pondSize=fishDTO.getPondSize();
@@ -37,12 +38,16 @@ public class FishServiceImpl implements FishService {
             inValid=true;
         }
 
-        if(inValid=true){
+        if(inValid==true){
             throw new DataInvalidException("The provided data is not valid");
+        }
+        if (fishDAO.isDuplicate(fishDTO)){
+            throw new DataDuplicateExecption("Duplicate entry: this owner and phone number already exist.");
         }
         else {
             boolean save= fishDAO.save(fishDTO);
             System.out.println("The data is saved: "+save);
         }
+        return fishDAO.save(fishDTO);
     }
 }
